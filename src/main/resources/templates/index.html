@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}">...</div>
+
+
+<div th:if="${message}">
+    <h2 th:text="${message}"/>
+</div>
+
+<div>
+    <form method="POST" enctype="multipart/form-data" action="/">
+        <table>
+            <tr>
+                <td>File to upload:</td>
+                <td><input type="file" name="image"/></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" value="Upload"/></td>
+            </tr>
+        </table>
+
+    </form>
+</div>
+
+<div>
+    <table border="1">
+        <thead>
+        <tr>
+
+            <td>Name</td>
+            <td>ID</td>
+            <td>contentType</td>
+            <td>size</td>
+            <td>uploadDate</td>
+            <td>md5</td>
+            <td>delete</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${images.size()} eq 0">
+            <td colspan="3">没有文件信息！！</td>
+        </tr>
+        <tr th:each="image : ${images}">
+            <td><a th:href="'files/'+${image.id}" th:text="${image.name}"/></td>
+            <td th:text="${image.id}"></td>
+            <td th:text="${image.contentType}"></td>
+            <td th:text="${image.size}"></td>
+            <td th:text="${image.uploadDate}"></td>
+            <td th:text="${image.md5}"></td>
+            <td onclick="deleteImg(this)" th:id="${image.id}" style="text-align:center;"><i class="fa fa-trash-o"></i>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div th:replace="~{fragments/footer :: footer}">...</div>
+</body>
+</html>
