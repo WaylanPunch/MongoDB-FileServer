@@ -1,63 +1,96 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head>
-</head>
+<!doctype html>
+<html class="no-js" xmlns:th="http://www.thymeleaf.org" lang="en">
 <body>
-<div th:replace="~{fragments/header :: header}">...</div>
+<header th:replace="~{fragments/header :: header}">...</header>
 
 
-<div th:if="${message}">
-    <h2 th:text="${message}"/>
+<!-- Breadcomb area Start-->
+<div class="breadcomb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="breadcomb-list">
+                    <div class="row">
+                        <form method="POST" enctype="multipart/form-data" action="/">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <input class="btn btn-default notika-btn-default" type="file" name="image"/>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-3">
+                                <div class="breadcomb-report">
+                                    <!--<button data-toggle="tooltip" data-placement="left" title="Download Report" class="btn">
+                                        <i class="notika-icon notika-sent"></i>
+                                    </button>-->
+                                    <!--<input data-toggle="tooltip" data-placement="left" title="Upload" class="btn"
+                                           type="submit" value="Upload">
+                                    </input>-->
+                                    <button type="submit" class="btn btn-success notika-btn-success"
+                                            data-toggle="tooltip" data-placement="left" title="Upload">Upload
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="row"></div>
+                    <div class="row">
+                        <div class="basic-tb-hd" th:if="${message}">
+                            <h2>Message</h2>
+                            <p th:text="${message}"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-
-<div>
-    <form method="POST" enctype="multipart/form-data" action="/">
-        <table>
-            <tr>
-                <td>File to upload:</td>
-                <td><input type="file" name="image"/></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td><input type="submit" value="Upload"/></td>
-            </tr>
-        </table>
-
-    </form>
 </div>
+<!-- Breadcomb area End-->
 
-<div>
-    <table border="1">
-        <thead>
-        <tr>
+<!-- Data Table area Start-->
+<div class="data-table-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="data-table-list">
 
-            <td>Name</td>
-            <td>ID</td>
-            <td>contentType</td>
-            <td>size</td>
-            <td>uploadDate</td>
-            <td>md5</td>
-            <td>delete</td>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:if="${images.size()} eq 0">
-            <td colspan="3">没有文件信息！！</td>
-        </tr>
-        <tr th:each="image : ${images}">
-            <td><a th:href="'files/'+${image.id}" th:text="${image.name}"/></td>
-            <td th:text="${image.id}"></td>
-            <td th:text="${image.contentType}"></td>
-            <td th:text="${image.size}"></td>
-            <td th:text="${image.uploadDate}"></td>
-            <td th:text="${image.md5}"></td>
-            <td onclick="deleteImg(this)" th:id="${image.id}" style="text-align:center;"><i class="fa fa-trash-o"></i>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+                    <div class="table-responsive">
+                        <table id="data-table-basic" class="table table-striped">
+                            <thead>
+                            <tr>
+                                <td>Name</td>
+                                <td>ID</td>
+                                <td>Content Type</td>
+                                <td>Size</td>
+                                <td>Upload Date</td>
+                                <td>MD5</td>
+                                <td>DELETE</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:if="${images.size()} eq 0">
+                                <td colspan="7">没有文件信息！！</td>
+                            </tr>
+                            <tr th:each="image : ${images}">
+                                <td><a th:href="'files/'+${image.id}" th:text="${image.name}"/></td>
+                                <td th:text="${image.id}"></td>
+                                <td th:text="${image.contentType}"></td>
+                                <td th:text="${image.size}"></td>
+                                <td th:text="${image.uploadDate}"></td>
+                                <td th:text="${image.md5}"></td>
+                                <td onclick="deleteImg(this)" th:id="${image.id}" style="text-align:center;"><i
+                                        class="fa fa-trash-o"></i>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+<!-- Data Table area End-->
 
-<div th:replace="~{fragments/footer :: footer}">...</div>
+<footer th:replace="~{fragments/footer :: footer}">...</footer>
 </body>
+
 </html>
